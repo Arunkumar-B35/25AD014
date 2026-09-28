@@ -1,6 +1,6 @@
 package _AD014.Exam.usecase.service;
 
-import _AD014.Exam.usecase.models.Vehicle;
+import _AD014.Exam.usecase.models.Vehicles;
 import _AD014.Exam.usecase.repo.VehicleRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,31 +15,42 @@ public class VehicleService {
         this.vehicleRepository = vehicleRepository;
     }
 
-    public List<Vehicle> getAllVehicles() {
+    public List<Vehicles> getAllVehicles() {
         return vehicleRepository.findAll();
     }
 
-    public Vehicle getVehicleById(Long id) {
+    public Vehicles getVehicleById(Long id) {
         return vehicleRepository.findById(id).orElse(null);
     }
 
-    public Vehicle createVehicle(Vehicle vehicle) {
+    public Vehicles createVehicle(Vehicles vehicle) {
         return vehicleRepository.save(vehicle);
     }
 
-    public Vehicle updateVehicle(Long id, Vehicle vehicle) {
+    public Vehicles updateVehicle(Long id, Vehicles vehicle) {
 
-        Vehicle existingVehicle = vehicleRepository.findById(id)
+        Vehicles existingVehicle = vehicleRepository.findById(id)
                 .orElse(null);
 
         if (existingVehicle == null) {
             return null;
         }
 
-        existingVehicle.setRegistrationNumber(vehicle.getRegistrationNumber());
-        existingVehicle.setOwnerName(vehicle.getOwnerName());
-        existingVehicle.setVehicleModel(vehicle.getVehicleModel());
-        existingVehicle.setVehicleType(vehicle.getVehicleType());
+        existingVehicle.setRegistrationNumber(
+                vehicle.getRegistrationNumber()
+        );
+
+        existingVehicle.setOwnerName(
+                vehicle.getOwnerName()
+        );
+
+        existingVehicle.setVehicleModel(
+                vehicle.getVehicleModel()
+        );
+
+        existingVehicle.setVehicleType(
+                vehicle.getVehicleType()
+        );
 
         return vehicleRepository.save(existingVehicle);
     }
