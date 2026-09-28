@@ -8,13 +8,17 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Bay {
+public class Part {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String bayNumber;
+    private String partName;
 
-    private boolean available;
+    private String partNumber;
+
+    private Integer quantity;
+
+    private Double price;
 }
