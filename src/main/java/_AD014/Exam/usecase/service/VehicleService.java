@@ -1,66 +1,49 @@
 package _AD014.Exam.usecase.service;
 
-import _AD014.Exam.usecase.models.Vehicles;
-import _AD014.Exam.usecase.repo.VehiclesRepository;
+import _AD014.Exam.usecase.models.Vehicle;
+import _AD014.Exam.usecase.repo.VehicleRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class VehiclesService {
+public class VehicleService {
 
-    private final VehiclesRepository vehicleRepository;
+    private final VehicleRepository vehicleRepository;
 
-    public VehiclesService(VehiclesRepository vehicleRepository) {
+    public VehicleService(VehicleRepository vehicleRepository) {
         this.vehicleRepository = vehicleRepository;
     }
 
-    // Get all vehicles
-    public List<Vehicles> getAllVehicles() {
+    public List<Vehicle> getAllVehicles() {
         return vehicleRepository.findAll();
     }
 
-    // Get vehicle by ID
-    public Vehicles getVehicleById(Long id) {
-        return vehicleRepository.findById(id)
-                .orElse(null);
+    public Vehicle getVehicleById(Long id) {
+        return vehicleRepository.findById(id).orElse(null);
     }
 
-    // Create vehicle
-    public Vehicles createVehicle(Vehicles vehicle) {
+    public Vehicle createVehicle(Vehicle vehicle) {
         return vehicleRepository.save(vehicle);
     }
 
-    // Update vehicle
-    public Vehicles updateVehicle(Long id, Vehicles vehicle) {
+    public Vehicle updateVehicle(Long id, Vehicle vehicle) {
 
-        Vehicles existingVehicle = vehicleRepository.findById(id)
+        Vehicle existingVehicle = vehicleRepository.findById(id)
                 .orElse(null);
 
         if (existingVehicle == null) {
             return null;
         }
 
-        existingVehicle.setRegistrationNumber(
-                vehicle.getRegistrationNumber()
-        );
-
-        existingVehicle.setOwnerName(
-                vehicle.getOwnerName()
-        );
-
-        existingVehicle.setVehicleModel(
-                vehicle.getVehicleModel()
-        );
-
-        existingVehicle.setVehicleType(
-                vehicle.getVehicleType()
-        );
+        existingVehicle.setRegistrationNumber(vehicle.getRegistrationNumber());
+        existingVehicle.setOwnerName(vehicle.getOwnerName());
+        existingVehicle.setVehicleModel(vehicle.getVehicleModel());
+        existingVehicle.setVehicleType(vehicle.getVehicleType());
 
         return vehicleRepository.save(existingVehicle);
     }
 
-    // Delete vehicle
     public void deleteVehicle(Long id) {
         vehicleRepository.deleteById(id);
     }

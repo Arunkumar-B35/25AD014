@@ -1,7 +1,7 @@
 package _AD014.Exam.usecase.controller;
 
 import _AD014.Exam.usecase.models.Vehicles;
-import _AD014.Exam.usecase.service.VehiclesService;
+import _AD014.Exam.usecase.service.VehicleService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,9 +10,9 @@ import java.util.List;
 @RequestMapping("/api/vehicles")
 public class VehicleController {
 
-    private final VehiclesService vehicleService;
+    private final VehicleService vehicleService;
 
-    public VehicleController(VehiclesService vehicleService) {
+    public VehicleController(VehicleService vehicleService) {
         this.vehicleService = vehicleService;
     }
 
