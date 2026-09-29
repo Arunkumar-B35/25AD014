@@ -51,6 +51,9 @@ public class VehicleService {
         existingVehicle.setVehicleType(
                 vehicle.getVehicleType()
         );
+        existingVehicle.setPhone(
+                vehicle.getPhone()
+        );
 
         return vehicleRepository.save(existingVehicle);
     }

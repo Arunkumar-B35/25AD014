@@ -20,4 +20,6 @@ public class Vehicles {
     private String vehicleModel;
 
     private String vehicleType;
+
+    private String phone;
 }

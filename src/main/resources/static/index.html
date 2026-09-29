@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GarageDesk</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+        <div class="logo-icon">GD</div>
+
+        <div>
+            <h2>GarageDesk</h2>
+            <p>Service Management</p>
+        </div>
+    </div>
+
+
+    <nav>
+
+        <button class="nav-item active"
+                onclick="showPage('dashboard', this)">
+            🏠 Dashboard
+        </button>
+
+        <button class="nav-item"
+                onclick="showPage('vehicles', this)">
+            🚗 Vehicles
+        </button>
+
+        <button class="nav-item"
+                onclick="showPage('jobcards', this)">
+            📋 Job Cards
+        </button>
+
+        <button class="nav-item"
+                onclick="showPage('mechanics', this)">
+            🔧 Mechanics
+        </button>
+
+        <button class="nav-item"
+                onclick="showPage('bays', this)">
+            🅿 Bays
+        </button>
+
+        <button class="nav-item"
+                onclick="showPage('parts', this)">
+            ⚙ Parts
+        </button>
+
+        <button class="nav-item"
+                onclick="showPage('bills', this)">
+            💰 Bills
+        </button>
+
+    </nav>
+
+</aside>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="main">
+
+
+    <!-- ================= DASHBOARD ================= -->
+
+    <section id="dashboard" class="page active-page">
+
+        <header class="header">
+
+            <div>
+                <h1>Garage Dashboard</h1>
+
+                <p>
+                    Vehicle Service Job Card & Bay Scheduling System
+                </p>
+            </div>
+
+            <div class="admin">
+
+                <div class="avatar">
+                    A
+                </div>
+
+                <div>
+                    <strong>Admin</strong>
+                    <small>Garage Manager</small>
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <div class="cards">
+
+            <div class="card">
+
+                <div class="card-icon blue">
+                    🚗
+                </div>
+
+                <div>
+                    <p>Total Vehicles</p>
+                    <h2 id="totalVehicles">0</h2>
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon orange">
+                    📋
+                </div>
+
+                <div>
+                    <p>Total Job Cards</p>
+                    <h2 id="totalJobCards">0</h2>
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon green">
+                    🔧
+                </div>
+
+                <div>
+                    <p>Total Mechanics</p>
+                    <h2 id="totalMechanics">0</h2>
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon purple">
+                    🅿
+                </div>
+
+                <div>
+                    <p>Total Bays</p>
+                    <h2 id="totalBays">0</h2>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="dashboard-grid">
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <h2>Job Card Status</h2>
+                        <p>Current service progress</p>
+                    </div>
+
+                </div>
+
+
+                <div class="status-item">
+                    <span>WAITING</span>
+                    <strong id="waitingCount">0</strong>
+                </div>
+
+
+                <div class="status-item">
+                    <span>IN_PROGRESS</span>
+                    <strong id="progressCount">0</strong>
+                </div>
+
+
+                <div class="status-item">
+                    <span>QUALITY_CHECK</span>
+                    <strong id="qualityCount">0</strong>
+                </div>
+
+
+                <div class="status-item">
+                    <span>COMPLETED</span>
+                    <strong id="completedCount">0</strong>
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <h2>System Information</h2>
+                        <p>GarageDesk backend</p>
+                    </div>
+
+                </div>
+
+
+                <div class="system-info">
+
+                    <p>
+                        <strong>Backend:</strong>
+                        Spring Boot
+                    </p>
+
+                    <p>
+                        <strong>Database:</strong>
+                        MySQL
+                    </p>
+
+                    <p>
+                        <strong>Server:</strong>
+                        localhost:8081
+                    </p>
+
+                    <p>
+                        <strong>API:</strong>
+                        /api
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= VEHICLES ================= -->
+
+    <section id="vehicles" class="page">
+
+        <div class="page-header">
+
+            <div>
+                <h1>Vehicles</h1>
+                <p>Manage registered vehicles</p>
+            </div>
+
+            <button onclick="showVehicleForm()">
+                + Add Vehicle
+            </button>
+
+        </div>
+
+
+        <div id="vehicleForm" class="form-box hidden">
+
+            <h3 id="vehicleFormTitle">Add Vehicle</h3>
+
+            <form id="vehicleFormElement"
+                  onsubmit="addVehicle(event)">
+
+                <input
+                        id="registrationNumber"
+                        placeholder="Registration Number"
+                        required
+                >
+
+                <input
+                        id="ownerName"
+                        placeholder="Owner Name"
+                        required
+                >
+
+                <input
+                        id="vehicleModel"
+                        placeholder="Vehicle Model"
+                        required
+                >
+
+                <input
+                        id="vehicleType"
+                        placeholder="Vehicle Type"
+                        required
+                >
+
+                <button type="submit"
+                        id="vehicleSubmitButton">
+                    Save Vehicle
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h2>Vehicle List</h2>
+                    <p>All registered vehicles</p>
+                </div>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Registration</th>
+                        <th>Owner</th>
+                        <th>Model</th>
+                        <th>Type</th>
+                        <th>Action</th>
+                    </tr>
+
+                    </thead>
+
+                    <tbody id="vehicleTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= JOB CARDS ================= -->
+
+    <section id="jobcards" class="page">
+
+        <div class="page-header">
+
+            <div>
+                <h1>Job Cards</h1>
+                <p>Manage vehicle service jobs</p>
+            </div>
+
+            <button onclick="showJobCardForm()">
+                + Add Job Card
+            </button>
+
+        </div>
+
+
+        <div id="jobCardForm" class="form-box hidden">
+
+            <h3 id="jobCardFormTitle">Create Job Card</h3>
+
+            <form id="jobCardFormElement"
+                  onsubmit="addJobCard(event)">
+
+                <input
+                        id="jobDescription"
+                        placeholder="Description"
+                        required
+                >
+
+                <input
+                        id="serviceType"
+                        placeholder="Service Type"
+                        required
+                >
+
+                <select id="jobStatus">
+
+                    <option value="WAITING">
+                        WAITING
+                    </option>
+
+                    <option value="IN_PROGRESS">
+                        IN_PROGRESS
+                    </option>
+
+                    <option value="QUALITY_CHECK">
+                        QUALITY_CHECK
+                    </option>
+
+                    <option value="COMPLETED">
+                        COMPLETED
+                    </option>
+
+                </select>
+
+                <input
+                        id="estimatedCost"
+                        type="number"
+                        placeholder="Estimated Cost"
+                        required
+                >
+
+                <button type="submit"
+                        id="jobCardSubmitButton">
+                    Save Job Card
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h2>Job Card List</h2>
+                    <p>All service jobs</p>
+                </div>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Description</th>
+                        <th>Service Type</th>
+                        <th>Status</th>
+                        <th>Estimated Cost</th>
+                        <th>Action</th>
+                    </tr>
+
+                    </thead>
+
+                    <tbody id="jobCardTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= MECHANICS ================= -->
+
+    <section id="mechanics" class="page">
+
+        <div class="page-header">
+
+            <div>
+                <h1>Mechanics</h1>
+                <p>Manage garage mechanics</p>
+            </div>
+
+            <button onclick="showMechanicForm()">
+                + Add Mechanic
+            </button>
+
+        </div>
+
+
+        <div id="mechanicForm" class="form-box hidden">
+
+            <h3 id="mechanicFormTitle">Add Mechanic</h3>
+
+            <form id="mechanicFormElement"
+                  onsubmit="addMechanic(event)">
+
+                <input
+                        id="mechanicName"
+                        placeholder="Mechanic Name"
+                        required
+                >
+
+                <input
+                        id="specialization"
+                        placeholder="Specialization"
+                        required
+                >
+
+                <select id="mechanicAvailable">
+
+                    <option value="true">
+                        Available
+                    </option>
+
+                    <option value="false">
+                        Not Available
+                    </option>
+
+                </select>
+
+                <button type="submit"
+                        id="mechanicSubmitButton">
+                    Save Mechanic
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h2>Mechanic List</h2>
+                    <p>All garage mechanics</p>
+                </div>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Specialization</th>
+                        <th>Availability</th>
+                        <th>Action</th>
+                    </tr>
+
+                    </thead>
+
+                    <tbody id="mechanicTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= BAYS ================= -->
+
+    <section id="bays" class="page">
+
+        <div class="page-header">
+
+            <div>
+                <h1>Garage Bays</h1>
+                <p>Manage service bay availability</p>
+            </div>
+
+            <button onclick="showBayForm()">
+                + Add Bay
+            </button>
+
+        </div>
+
+
+        <div id="bayForm" class="form-box hidden">
+
+            <h3 id="bayFormTitle">Add Bay</h3>
+
+            <form id="bayFormElement"
+                  onsubmit="addBay(event)">
+
+                <input
+                        id="bayNumber"
+                        placeholder="Bay Number"
+                        required
+                >
+
+                <select id="bayAvailable">
+
+                    <option value="true">
+                        Available
+                    </option>
+
+                    <option value="false">
+                        Occupied
+                    </option>
+
+                </select>
+
+                <button type="submit"
+                        id="baySubmitButton">
+                    Save Bay
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h2>Bay List</h2>
+                    <p>All garage bays</p>
+                </div>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Bay Number</th>
+                        <th>Availability</th>
+                        <th>Action</th>
+                    </tr>
+
+                    </thead>
+
+                    <tbody id="bayTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= PARTS ================= -->
+
+    <section id="parts" class="page">
+
+        <div class="page-header">
+
+            <div>
+                <h1>Parts</h1>
+                <p>Manage spare parts inventory</p>
+            </div>
+
+            <button onclick="showPartForm()">
+                + Add Part
+            </button>
+
+        </div>
+
+
+        <div id="partForm" class="form-box hidden">
+
+            <h3 id="partFormTitle">Add Part</h3>
+
+            <form id="partFormElement"
+                  onsubmit="addPart(event)">
+
+                <input
+                        id="partName"
+                        placeholder="Part Name"
+                        required
+                >
+
+                <input
+                        id="partNumber"
+                        placeholder="Part Number"
+                        required
+                >
+
+                <input
+                        id="partQuantity"
+                        type="number"
+                        placeholder="Quantity"
+                        required
+                >
+
+                <input
+                        id="partPrice"
+                        type="number"
+                        placeholder="Price"
+                        required
+                >
+
+                <button type="submit"
+                        id="partSubmitButton">
+                    Save Part
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h2>Parts Inventory</h2>
+                    <p>Available spare parts</p>
+                </div>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Part Name</th>
+                        <th>Part Number</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+
+                    </thead>
+
+                    <tbody id="partTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= BILLS ================= -->
+
+    <section id="bills" class="page">
+
+        <div class="page-header">
+
+            <div>
+                <h1>Bills</h1>
+                <p>Manage service bills</p>
+            </div>
+
+            <button onclick="showBillForm()">
+                + Create Bill
+            </button>
+
+        </div>
+
+
+        <div id="billForm" class="form-box hidden">
+
+            <h3 id="billFormTitle">Create Bill</h3>
+
+            <form id="billFormElement"
+                  onsubmit="addBill(event)">
+
+                <input
+                        id="partsCharges"
+                        type="number"
+                        placeholder="Parts Charges"
+                        required
+                >
+
+                <input
+                        id="labourCharges"
+                        type="number"
+                        placeholder="Labour Charges"
+                        required
+                >
+
+                <button type="submit"
+                        id="billSubmitButton">
+                    Save Bill
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h2>Bill List</h2>
+                    <p>All service bills</p>
+                </div>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Parts Charges</th>
+                        <th>Labour Charges</th>
+                        <th>Total</th>
+                        <th>Action</th>
+                    </tr>
+
+                    </thead>
+
+                    <tbody id="billTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script src="App.js"></script>
+
+</body>
+
+</html>
